@@ -1,3 +1,8 @@
+export type LoaderOptions = {
+    apiKey: string;
+    [key: string]: unknown;
+};
+
 export interface Article {
     source: {
         id: string | null;
@@ -31,4 +36,11 @@ export interface Source {
 export interface SourcesResponse {
     status: string;
     sources: Source[];
+}
+
+export type DataCallback<T> = (data: T) => void;
+
+export interface RequestParams {
+    endpoint: string;
+    options: LoaderOptions;
 }
