@@ -2,6 +2,12 @@ body {
     color: #fff;
     background: #17181c;
     font-family: sans-serif;
+    max-width: 100vw;
+    overflow-x: hidden;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    margin: 0;
 }
 
 header {
@@ -13,13 +19,24 @@ header h1 {
     font-weight: 800;
 }
 
-footer {
-    height: 100px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+main {
+    flex: 1;
 }
-footer .copyright {
+
+footer {
+    box-sizing: border-box;
+    height: 100px;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    margin: 20px auto;
+    padding: 15px 30px;
+}
+footer .copyright,
+footer .my-github,
+footer .date {
     font-size: 14px;
     color: #333;
     text-align: center;
@@ -27,7 +44,8 @@ footer .copyright {
 footer .copyright a {
     color: #444;
 }
-footer .copyright a:hover {
+footer .copyright a,
+footer.my-github a:hover {
     color: #555;
 }
 footer .copyright:before {
