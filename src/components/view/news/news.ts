@@ -1,9 +1,9 @@
 import './news.css';
-import { Article, NewsResponse } from '../../../types';
+import { Article } from '../../../types';
 
 class News {
-    draw(data: NewsResponse) {
-        const news = data.articles.slice(0, 10);
+    draw(data: Article[]) {
+        const news = data.slice(0, 10);
 
         const fragment = document.createDocumentFragment();
         const newsItemTemp = document.querySelector('#newsItemTemp') as HTMLTemplateElement;
