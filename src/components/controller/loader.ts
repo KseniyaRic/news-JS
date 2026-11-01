@@ -1,8 +1,8 @@
-import { LoaderOptions, DataCallback, RequestParams } from '../../types';
+import { LoaderOptions, DataCallback, RequestParams, HttpMethod } from '../../types';
 
 class Loader {
-    baseLink: string;
-    options: LoaderOptions;
+    private readonly baseLink: string;
+    private readonly options: LoaderOptions;
     constructor(baseLink: string, options: LoaderOptions) {
         this.baseLink = baseLink;
         this.options = options;
@@ -13,8 +13,8 @@ class Loader {
         callback: DataCallback<T> = () => {
             console.error('No callback for GET response');
         }
-    ) {
-        this.load<T>('GET', endpoint, callback, options);
+    ): void {
+        this.load<T>(HttpMethod.GET, endpoint, callback, options);
     }
 
     errorHandler(res: Response) {
@@ -38,10 +38,10 @@ class Loader {
         return url.slice(0, -1);
     }
 
-    load<T>(method: string, endpoint: string, callback: DataCallback<T>, options: LoaderOptions) {
+    load<T>(method: HttpMethod, endpoint: string, callback: DataCallback<T>, options: LoaderOptions) {
         fetch(this.makeUrl(options, endpoint), { method })
             .then(this.errorHandler)
-            .then((res) => res.json())
+            .then((res) => res.json() as Promise<T>)
             .then((data) => callback(data))
             .catch((err) => console.error(err));
     }
