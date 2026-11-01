@@ -1,8 +1,8 @@
 import AppLoader from './appLoader';
-import { SourcesResponse, NewsResponse, Endpoint } from '../../types';
+import { SourcesResponse, NewsResponse, Endpoint, DataCallback } from '../../types';
 
 class AppController extends AppLoader {
-    getSources(callback: (data: SourcesResponse) => void) {
+    public getSources(callback: DataCallback<SourcesResponse>): void {
         super.getResp(
             {
                 endpoint: Endpoint.Sources,
@@ -14,29 +14,30 @@ class AppController extends AppLoader {
         );
     }
 
-    getNews(e: MouseEvent, callback: (data: NewsResponse) => void) {
-        let target = e.target as HTMLElement;
+    public getNews(e: MouseEvent, callback: DataCallback<NewsResponse>): void {
+        let target = e.target as HTMLElement | null;
         const newsContainer = e.currentTarget as HTMLElement;
 
-        while (target !== newsContainer) {
+        while (target && target !== newsContainer) {
             if (target.classList.contains('source__item')) {
-                const sourceId = target.getAttribute('data-source-id') as string;
-                if (newsContainer.getAttribute('data-source') !== sourceId) {
-                    newsContainer.setAttribute('data-source', sourceId);
-                    super.getResp(
-                        {
-                            endpoint: Endpoint.Everything,
-                            options: {
-                                sources: sourceId,
-                                apiKey: process.env.API_KEY as string,
+                const sourceId = target.getAttribute('data-source-id');
+                if (sourceId && newsContainer.getAttribute('data-source') !== sourceId)
+                    if (newsContainer.getAttribute('data-source') !== sourceId) {
+                        newsContainer.setAttribute('data-source', sourceId);
+                        super.getResp(
+                            {
+                                endpoint: Endpoint.Everything,
+                                options: {
+                                    sources: sourceId,
+                                    apiKey: process.env.API_KEY as string,
+                                },
                             },
-                        },
-                        callback
-                    );
-                }
+                            callback
+                        );
+                    }
                 return;
             }
-            target = target.parentNode as HTMLElement;
+            target = target.parentElement;
         }
     }
 }
