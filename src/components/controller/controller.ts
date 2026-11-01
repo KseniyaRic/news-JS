@@ -1,11 +1,11 @@
 import AppLoader from './appLoader';
-import { SourcesResponse, NewsResponse } from '../../types';
+import { SourcesResponse, NewsResponse, Endpoint } from '../../types';
 
 class AppController extends AppLoader {
     getSources(callback: (data: SourcesResponse) => void) {
         super.getResp(
             {
-                endpoint: 'mocks/sources',
+                endpoint: Endpoint.Sources,
                 options: {
                     apiKey: process.env.API_KEY as string,
                 },
@@ -25,7 +25,7 @@ class AppController extends AppLoader {
                     newsContainer.setAttribute('data-source', sourceId);
                     super.getResp(
                         {
-                            endpoint: 'mocks/everything',
+                            endpoint: Endpoint.Everything,
                             options: {
                                 sources: sourceId,
                                 apiKey: process.env.API_KEY as string,

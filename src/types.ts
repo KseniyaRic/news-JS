@@ -47,3 +47,7 @@ export interface RequestParams {
 export enum HttpMethod {
     GET = 'GET',
 }
+export enum Endpoint {
+    Sources = 'sources',
+    Everything = 'everything',
+}
