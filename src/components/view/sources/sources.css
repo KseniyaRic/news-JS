@@ -7,6 +7,13 @@
     font:
         300 1em 'Fira Sans',
         sans-serif;
+    scrollbar-width: thin;
+    scrollbar-color: #70d6ff transparent;
+    scroll-snap-type: x proximity;
+    scroll-behavior: smooth;
+    overscroll-behavior-x: contain;
+    -webkit-mask-image: linear-gradient(to right, transparent 0, #000 16px, #000 calc(100% - 24px), transparent 100%);
+    mask-image: linear-gradient(to right, transparent 0, #000 16px, #000 calc(100% - 24px), transparent 100%);
 }
 
 .source__item {
@@ -19,6 +26,8 @@
     color: #70d6ff;
     transition: 0.25s;
     cursor: pointer;
+    flex: 0 0 auto;
+    scroll-snap-align: start;
 }
 
 .source__item:hover,

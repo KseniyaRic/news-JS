@@ -68,4 +68,7 @@ footer .copyright:before {
     .news {
         padding: 10px 30px;
     }
+    .sources {
+        scrollbar-width: none;
+    }
 }
